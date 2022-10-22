@@ -584,6 +584,8 @@ Given \mtx{A}{m}{n}, the following statements are equivelent:
 \item $rank(A)=dim(Col(A)=n$
 \item $Nul(A)=\{\bm{0}\}$
 \item $dim(Nul(A))=0$
+\item The scalar 0 is not an eigenvalue of A
+\item $det(A) \neq 0$
 
 \end{enumerate}
 \end{thm}
@@ -951,14 +953,240 @@ If we define a linear transformation, T, using A as the standard matrix:
 \end{itemize}
 \end{enumerate}
 
-\section{Eigenvalues and Eigenvectors}
+\chapter{Eigenvalues and Eigenvectors}
 
-\begind{dfn}[Eigenvalue and Eignvector]
+\section{Introduction}
+
+\begin{dfn}[Eigenvalue and Eignvector]
 Given the equation $A\bm{x}=\lambda \bm{x}$ with matrix A, the \textbf{eigenvalue} is a scalar $\lambda$ and the \textbf{eignvector} is a vector x that satisfies the equation.
 \end{dfn}
 
 \begin{thm}
-Given set $v_1,$
+Given set S of eigenvectors $v_1, v_2, \ldots, v_n$ that each corresponds to distinct eigenvalues of matrix A, we know the set S is linearly independent.
+\end{thm}
+
+\section{Characteristic Equation}
+
+\begin{dfn}[Characteristic Equation]
+The eigenvalues of A must satisfy the below characteristic equation:
+\begin{equation}
+det(A - \lambda I) = 0
+\end{equation}
+\end{dfn}
+
+\begin{proc}
+If matrix A is not invertible, the determinant is 0. When it is, we can calculate the determinant of A using row reduction into echelon form U. During row reduction, let r be the number of times we interchange rows, and let k be the cumulative product of the amount we scale rows, the determinant is equal to $\frac{(-1)^r}{k}\cdot (product\:of\:pivots\:of\:U)$
+\end{proc}
+
+\begin{prop}
+Given \mtx{A}{n}{n} and \mtx{B}{n}{n}
+\begin{enumerate}
+\item A is invertible iff $detA \neq 0$
+\item $det(AB) = (detA)(detB)$
+\item $det A^T = det A$
+\item If A is in row echelon form, the determinant is the product of the diagonals
+\item row replacement makes no difference, row interchange changes the sign, and row scaling scales by the same scalar factor on the determinant
+\end{enumerate}
+\end{prop}
+
+\begin{dfn}[Similarity]
+Two matrices A and B are similar iff there is a matrix P s.t $A=P^{-1}BP$
+We also know that if A and B are similar, then they have the same characteristic equation and eigenvalues.
+\end{dfn}
+
+\section{Diagonalization}
+
+\begin{dfn}[Diagonalization]
+A matrix \mtx{A}{n}{n} is diagonalizable if it can be written in the form $A=P^{-1}DP$ where D is a diagonal matrix.
+By the Diagonalization theorem, this is also iff A has n linearly independent eigenvectors. In this case, the columns of P are these eigenvectors and the diagonal entries of D are the eigenvalues.
+Also note that we know A must be diagonalizable if it has n distinct eigenvalues.
+\end{dfn}
+
+\section{More on Linear Transformation}
+
+For a linear transformation from vector space V to vector space W with bases $B={b_1, \ldots, b_n}$ and $C={c_1, \ldots, c_n}$, the transformation T can be represented as 
+\begin{equation}
+[T(x)]_C = M[x]_B
+\end{equation}
+where we have M (called the B-matrix for T if V=W)
+\begin{equation}
+M = [[T(b_1)]_C \; [T(b_2)]_C \; \cdots \; [T(b_n)]_C]
+\end{equation}
+
+\begin{thm}[Diagonal Matrix Representation]
+Let $A = PDP^{-1}$
+For linear transformation $x \mapsto Ax$ in $\mathbf{R}^n$, if B is the basis for $\mathbf{R}^n$ formed from the columns of P, then D is the B-matrix for the linear transformation.
+\end{thm}
+
+\section{Complex Eigenvalues}
+
+Solving the Characteristic Equation may often give us complex eigenvalues. We know that these must come in pairs.
+
+We can break up complex vectors into their real and imaginary parts. We can also define conjugates to be vectors where each entry is the complex entry of its corresponding entry in the original vector.
+
+\chapter{Orthogonality and Least Squares}
+
+\section{Introduction}
+
+\begin{dfn}[Inner Product]
+The inner product of two n-vectors u and v is the scalar given by $u^Tv$. This is also equivalent to the dot product.
+\end{dfn}
+
+\begin{prop}
+Given u, v, and w are vectors in $mathbb{R}^n$ and c is a scalar:
+\begin{enumerate}
+\item $u \cdot v = v \cdot u$
+\item $(u+v)\cdot w = u\cdot w + v\cdot w\cdot$
+\item $(cu)\cdot v = c(u \cdot v) = u \cdot (cv)$
+\item $u\cdot u \geq 0$ and $u \cdot u = 0$ iff $u = 0$
+\end{enumerate}
+\end{prop}
+
+\begin{dfn}[Norm]
+The length/norm of v is the scalar $\|v\|$
+\begin{equation}
+\|v\| = \sqrt{v\cdot v} = \sqrt{v_1^2+v_2^2+\ldots+v_n^2}
+\end{equation}
+\end{dfn}
+
+\begin{dfn}[Distance]
+Given u and v in $\mathbb{R}^n$, the distance in between is
+\begin{equation}
+dist(u, v) = \|u-v\|
+\end{equation}
+\end{dfn}
+
+\begin{dfn}[Orthogonality]
+Let's start with the theorem that two vectors u and v are orthogonal iff $\|u+v\|^2=\|u\|^2+\|v\|^2$.
+From this, we define the vectors to be orthogonal if $u\cdot v = 0$
+\end{dfn}
+
+\begin{cpt}
+Given a vector space W in $\mathbb{R}^n$, we call the vector space $W^\perp$ the orthogonal complement of W if every vector in $W^\perp$ is orthogonal to every vector in W. Also, we note that $W^\perp$ is a subspace of $\mathbb{R}^n$.
+\end{cpt}
+
+\begin{thm}
+Given matrix \mtx{A}{n}{n}, we know that
+\begin{equation}
+(Row A)^\perp = Nul A \qquad and \qquad (Col A)^\perp = Nul A^T
+\end{equation}
+\end{thm}
+
+Note: If u and v are both vectors in $\mathbb{R}^2 or \mathbb{R}^3$, we also know that $u \cdot v = \|u\| \: \|v\|cos \theta$ where $\theta$ is the angle between the two.
+
+\section{Orthogonal Sets}
+
+\begin{dfn}[Orthogonal Set]
+A set of vectors is orthogonal if each pair of vectors from the set is orthogonal.
+\end{dfn}
+
+\begin{dfn}[Orthogonal Basis]
+An orthogonal basis for subspace W in $\mathbb{R}^n$ is a set that is both a basis for W and orthogonal. Note that all orthogonal sets are linearly independent and thus bases for the subspace they span.
+\end{dfn}
+
+\begin{thm}
+Given orthogonal basis ${u_w, \ldots, u_p}$ for subspace W, each y can be represented by the linear combination
+\begin{equation}
+y = c_1u_1+\cdots+c_pu_p
+\end{equation}
+where the weight $c_j$ are given by the projection of y onto $c_j$
+\begin{equation}
+c_j=\frac{y\cdot u_j}{u_j\cdot u_j}
+\end{equation}
+\end{thm}
+
+\begin{dfn}[Orthonormal Set]
+We define the orthonormal set and basis as the orthogonal set and basis composed of only unit vectors.
+\end{dfn}
+
+\begin{thm}
+We take a closer look at the matrix \mtx{U}{m}{n} whose columns make up an orthonormal set. We see that its columns are orthonormal iff $U^TU=I$.
+
+Given x and y in $\mathbb{R}^n$, we also have the following properties:
+\begin{enumerate}
+\item $\|Ux\| = \|x\|$
+\item $(Ux)\cdot (Uy)=x\cdot y$
+\item $(Ux)\cdot (Uy)=0$ iff $x\cdot y=0$
+\end{enumerate}
+
+Using these properties, we can see that the linear transformation given by $x\mapsto Ux$ preserves length and orthogonality.
+
+\end{thm}
+
+\section{Orthogonal Projections}
+
+\begin{thm}[Orthogonal Decomposition Theorem]
+Let W be a subspace in $\mathbb{R}^n$. Each y in $\mathbb{R}^n$ can be written uniquely in the form
+\begin{equation}
+y = \hat{y} + z
+\end{equation}
+where $\hat{y}$ is in W and z is in $W^\perp$
+\end{thm}
+
+\begin{thm}[Best Approximation Theorem]
+$\hat{y}$, the orthogonal projection of y onto W, is the closest point on W to y (the distance from y to $\hat{y}$.
+\end{thm}
+
+\begin{thm}
+Given matrix U whose columns are the orthonormal basis for subspace W of $\mathbb{R}^n$, then
+\begin{equation}
+proj_W y = UU^Ty
+\end{equation}
+\end{thm}
+
+\section{Gram-Schmidt Process}
+
+\begin{proc}[Gram-Schmidt Process]
+Using the Gram-Schmidt process we can construct an orthogonal basis for a subspace W from an already given basis.
+
+Given a basis ${x_1, \ldots, x_p}$ for subspace W in $\mathbb{R}^n$, we generate new basis vectors by subtracting each already seen orthogonal vector from the old vectors.
+
+\begin{eqnarray*}
+v_1 = x_1 \\
+v_2 = x_2 - \frac{x_2 \cdot v_1}{v_1 \cdot v_1} v_1 \\
+v_3 = x_3 - \frac{x_3 \cdot v_1}{v_1 \cdot v_1} v_1 - \frac{x_3 \cdot v_2}{v_2 \cdot v_2} v_2 \\
+\vdots \\
+v_p = x_p - \frac{x_p \cdot v_1}{v_1 \cdot v_1} v_1 - \frac{x_p \cdot v_2}{v_2 \cdot v_2} v_2 - \cdots - \frac{x_p \cdot v_{p-1}}{v_{p-1} \cdot v_{p-1}} v_{p-1}
+\end{eqnarray*}
+
+To make this into an orthonormal basis we just normalize each vector.
+
+\end{proc}
+
+\begin{thm}
+We can write matrix \mtx{A}{m}{n} out with the QR factorization as $A=QR$ where W is the $m \times n$ matrix whose columns are formed by the orthonormal basis for Col A and R is an $m\times n$ upper triangular matrix.
+\end{thm}
+
+\section{The Least-Squares Problem}
+
+\begin{thm}
+The least squares solution of \mateq is the vector $\hat{x}$ such that
+\begin{equation}
+\|b-A\hat{x}\| \leq \|b-Ax\|
+\end{equation}
+
+This set of least-squares solutions is the also the set of solutions of the normal equations $A^TAx=A^Tb$
+
+\end{thm}
+
+\begin{thm}
+Given matrix \mtx{A}{m}{n}, the following statements are equivalent
+
+\begin{enumerate}
+\item The equation \mateq has a unique least-squares solution for each b in $\mathbb{R}^m$
+\item The columns of A are linearly independent
+\item The matrix $A^TA$ is invertible
+\end{enumerate}
+
+\end{thm}
+
+\begin{thm}
+We can also calculate the least-squares solution of \mateq using the QR factorization of $A=QR$.
+
+\begin{equation}
+\hat{x} = R^{-1}Q^Tb
+\end{equation}
+
 \end{thm}
 
 \end{document}
