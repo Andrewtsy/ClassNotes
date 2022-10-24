@@ -1189,4 +1189,84 @@ We can also calculate the least-squares solution of \mateq using the QR factoriz
 
 \end{thm}
 
+\section{Inner Product Spaces}
+
+\begin{dfn}[Inner Product]
+An \textbf{inner product} on a vector space V is a function that, for each u and v on V, associates a real number <u, v> that satisfies the following axioms (where u, v, w are vectors and c is a scalar)
+\begin{enumerate}
+\item $<u, v>=<v, u>$
+\item $<u+v, w> = <u, w> + <v, w>$
+\item $<cu, v> = c<u, v>$
+\item $<u, u> \geq 0$ and $<u, u> = 0 $ iff $u=0$
+\end{enumerate}
+A vector space with an inner product is called an inner product space.
+\end{dfn}
+
+Many of the same properties explored in earlier sections such as vector length and Gram-Schmidt still hold.
+
+\begin{thm}
+The Cauchy-Schwarz Inequality states that for all u, v in V,
+
+\begin{equation}
+|<u, v>| \leq \|u\| \|v\||
+\end{equation}
+
+\end{thm}
+
+\begin{thm}
+The Triangle Inequality states that for all u, v in V,
+
+\begin{equation}
+\|u+v\| \leq \|u\| + \|v\||
+\end{equation}
+
+\end{thm}
+
+We can also commonly consider the inner product space for C[a, b] defined as the vector space of all continuous polynomial functions where the inner product for two vectors p and q in $\mathbb{P}_n$ is
+
+\begin{equation}
+<p, q> = p(t_0)q(t_0) + p(t_1)q_(t_1) + \cdots p(t_n)q(t_n)
+\end{equation}
+
+\chapter{Symmetric Matrices and Quadratic Forms}
+
+\begin{dfn}[Symmetric Matrix]
+A \textbf{symmetric matrix} is a matrix A such that $A^T=A$
+\end{dfn}
+
+\begin{thm}
+If A is a symmetric matrix, then any two eigenvectors from different eigenspaces are orthogonal.
+\end{thm}
+
+\begin{thm}
+A matrix \mtx{A}{n}{n} is orthogonally diagonalizable if there is an orthogonal matrix P such that 
+
+\begin{equation}
+A=PDP^T=PDP^{-1}
+\end{equation}
+
+Also, A is orthogonally diagonalizable iff A is a symmetric matrix.
+\end{thm}
+
+\begin{thm}
+The Spectral Theorem for Symmetric Matrices states that matrix \mtx{A}{n}{n} has the following properties
+
+\begin{enumerate}
+\item A has n real eigenvalues (counting multiplicity)
+\item The dimension for each eigenspace corresponding to $\lambda$ is the multiplicity of $\lambda$
+\item The eigenspaces are mutually orthogonal
+\item A is orthogonally diagonalizable
+\end{enumerate}
+
+\end{thm}
+
+\begin{thm}
+With the spectral decomposition, we can break up a diagonalizable matrix $A=PDP^{-1}$, where the columns of P are orthonormal eigenvectors $u_1, u_2, \ldots, u_n$ and
+
+\begin{equation}
+A=\lambda_1 u_1u_q^T+\lambda_2u_2u_2^T+\ldots+\lambda_nu_nu_n^T
+\end{equation}
+
+\end{thm}
+
 \end{document}
