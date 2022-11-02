@@ -586,6 +586,10 @@ Given \mtx{A}{m}{n}, the following statements are equivelent:
 \item $dim(Nul(A))=0$
 \item The scalar 0 is not an eigenvalue of A
 \item $det(A) \neq 0$
+\item $(Col A)^{\perp}=\{0\}$
+\item $(Nul A)^{\perp}\mathbb{R}^n$
+\item $Row A = \mathbb{R}^n$
+\item A has n nonzero singular values.
 
 \end{enumerate}
 \end{thm}
@@ -1266,6 +1270,28 @@ With the spectral decomposition, we can break up a diagonalizable matrix $A=PDP^
 \begin{equation}
 A=\lambda_1 u_1u_q^T+\lambda_2u_2u_2^T+\ldots+\lambda_nu_nu_n^T
 \end{equation}
+
+\end{thm}
+
+\section{Singular Value Decomposition}
+
+\begin{thm}
+Let the r singular values of matrix A be the square roots of the eigenvalues of $A^TA$. Then $\{Av_1, Av_2, \ldots, Av_r\}$, where $v_i$ are the eigenvectors of $A^TA$, is the orthogonal basis of $Col A$ and $rank A = r$
+\end{thm}
+
+\begin{thm}[Singular Value Decomposition]
+Let A be any matrix \mtx{A}{m}{n} with rank r. Then, we can decompose A into \mtx{\Sigma}{m}{n} for which the first r diagonal entries are the singular values of A in nonincreasing order, and into orthogonal matrices \mtx{U}{m}{m} (A times corresponding eigenvectors) and \mtx{V}{n}{n} (corresponding eigenvectors) such that
+
+\begin{equation}
+A=U\Sigma V^T
+\end{equation}
+
+\begin{proc}
+\begin{enumerate}
+\item Find orthogonal diagonalization of $A^TA$
+\item Construct $\Sigma$ and U and V from eigenvalues/eigenvectors
+\end{enumerate}
+\end{proc}
 
 \end{thm}
 
