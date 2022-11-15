@@ -15,6 +15,7 @@
 
 \newcommand{\mtx}[3]{$#1_{#2\times #3}$}
 \newcommand{\mateq}{$A\bm{x}=\bm{b}$}
+\newcommand{\difeq}{$\mathbf{x}'(t)=\mathbf{Ax}(t)$}
 
 \begin{document}
 
@@ -1294,5 +1295,223 @@ A=U\Sigma V^T
 \end{proc}
 
 \end{thm}
+
+\chapter{Linear Second Order Differential Equations}
+
+\section{Homogeneous Linear Equations}
+
+\begin{thm}
+We start by defining linear second order differential equations in the form 
+
+\begin{equation}
+ay''+by'+cy=0
+\end{equation}
+
+There exists a unique solution to the above equation. Because we are looking for functions that are similar to their first and second order derivatives, we consider solutions to be expressions of the form $y=ce^{rt}$, where $r_1$ and $r_2$ are of the form $\frac{-b \pm \sqrt{b^2-4ac}}{2a}$. We can find $c_1$ and $c_2$ by considering initial values.
+
+If there is a repeated root r, then $c_1e^{rt}$ and $c_2te^{rt}$ are solutions.
+
+\end{thm}
+
+\begin{dfn}[Linear Independence]
+A pair of functions is linearly independent on interval I iff neither of them is a constant multiple of the other on all of I. Otherwise, they are linearly dependent.
+
+If $y_1$ and $y_2$ are solutions to a linear second order differential equation and have a solution $\tau$ on the interval $(-\infty, -\infty)$ for the equation
+
+\begin{equation}
+y_1(\tau)y'_2(\tau)-y'_1(\tau)y_2(\tau)
+\end{equation}
+
+\end{dfn}
+
+\begin{thm}
+Now let's consider harmonic equations - a special case of differential equations with auxiliary equations with complex roots.
+
+Before we begin, note that by Euler's Formula:
+\begin{equation}
+e^{i\theta}=cos\theta + i sin\theta
+\end{equation}
+
+Thus, solutions to the auxiliary equation $\alpha \pm i\beta$ gives a solutions for the differential equation $c_1e^\alpha cos(\beta)$ and $c_2e^\alpha sin(\beta)$
+
+\end{thm}
+
+\begin{proc}[Method of Undetermined Coefficients]
+With differential equations of the form
+\begin{equation}
+ay''+by'+cy=P_m(t)e^{rt}
+\end{equation}
+
+We have solutions of the form
+
+\begin{equation}
+t^s(A_mt^m+\cdots+A_1t+A_0)e^{rt}
+\end{equation}
+where
+\begin{enumerate}
+\item s = 0 if r is not a root of the auxiliary equation
+\item s = 1 if r is a single root of the auxiliary equation
+\item s = 2 if r is a double root of the auxiliary equation
+\end{enumerate}
+
+With differential equations of the form
+\begin{equation}
+ay''+by'+cy=Ct^me^{\alpha t}cos(\beta t)
+\end{equation}
+or
+\begin{equation}
+ay''+by'+cy=Ct^me^{\alpha t}sin(\beta t)
+\end{equation}
+
+We have solutions of the form
+
+\begin{equation}
+t^s(A_mt^m+\cdots A_1t+A_0)e^{\alpha t}cos(\beta t)
+\end{equation}
+or
+\begin{equation}
+t^s(A_mt^m+\cdots A_1t+A_0)e^{\alpha t}sin(\beta t)
+\end{equation}
+where
+\begin{enumerate}
+\item s=0 if $\alpha+i\beta$ is not a root of the auxiliary equation
+\item s=1 if $\alpha+i\beta$ is a root of the auxiliary equation
+\end{enumerate}
+
+\end{proc}
+
+\begin{thm}
+By the Superposition Principle, if $y_1$ is a solution to the differential equation with left side $f_1(t)$ and $y_2$ is a solution to the differential equation with left side $f_2(t)$, then $k_1y_1+k_2y_2$ is a solution to the differential equation with left side $k_1f_1(t)+k_2f_2(t)$
+\end{thm}
+
+\begin{thm}
+Given nonhomogenous differential equation $ay''+by'+cy=f(t)$ with some solution $y_p(t)$ and corresponding homogenous differential equation $ay''+by'+cy=0$ with linearly independent solutions $y_1(t)$ and $y_2(t)$, there exists a unique solution $y_p(t)+c_1y_1(t)+c_2y_2(t)$
+\end{thm}
+
+\section{Linear Systems and Differential Equations}
+
+\begin{thm}
+The first fundamental idea is to consider functions as vectors with each element as a term, and derivatives as linear transformations with associated matrices.
+\end{thm}
+
+\begin{dfn}[Normal Form]
+Thus, we can represent a system of n linear differential equations in its normal form:
+\begin{equation}
+x'(t)=A(t)x(t)+f(t)
+\end{equation}
+where $x(t)=col(x_1(t),\ldots,x_n(t))$, $f(t)=col(f_1(t), \ldots, f_n(t))$, $A(t)=[a_{ij}(t)]$
+\end{dfn}
+
+\begin{dfn}[Wronskian]
+Linear dependence/independence of vector functions follows much the same principle as before.
+
+The Wronskian of n vector functions $x_1=col(x_{1,1},\ldots, x_{n,1},\ldots,x_n=col(x_{1,n},\ldots, x_{n,n},\ldots,$ is the function:
+
+\begin{equation}
+W[x_1,\ldots,x_n](t)=
+\begin{vmatrix}
+x_{1,1}(t) & x_{1,2}(t) & \ldots & x_{1,n}(t) \\
+x_{2,1}(t) & x_{2,2}(t) & \ldots & x_{2,n}(t) \\
+\vdots & \ldots & & \ldots \\
+x_{n,1}(t) & x_{n,2}(t) & \ldots & x_{n,n}(t) \\
+\end{vmatrix}
+\end{equation}
+
+\begin{proc}
+Procedure to find the general solution to the homogenous system $x'=Ax$.
+\begin{enumerate}
+\item Find fundamental, linearly independent solution set ${x_1, \ldots, x_n}$
+\item Form the linear combination
+\begin{equation}
+\mathbf{x}=c_1x_1+\ldots+c_nx_n
+\end{equation}
+\end{enumerate}
+
+Procedure to find the general solution to the nonhomogenous system $x'=Ax+f$
+\begin{enumerate}
+\item Find one particular solution $x_p$
+\item General solution is sum of $x_p$ and general solution for corresponding homogeneous system from before
+$x=x_p+c_1x_1+\ldots+c_nx_n$
+\end{enumerate}
+\end{proc}
+
+The fundamental linearly independent solution set for matrix \mtx{A}{n}{n} is:
+\begin{equation}
+{e^{r_1t}u_1, e^{r_2t}u_2,\ldots, e^{r_nt}u_n}
+\end{equation}
+where $r_i$ is the eigenvalue corresponding to eigenvector $u_i$. Note also that the eigenvectors associated with distinct eigenvalues must be linearly independent, thereby making a fundamental solution set (if there are n distinct eigenvalues).
+
+Also note that real symmetric matrices must satisfy this property.
+
+\end{dfn}
+
+\begin{thm}
+Now, we consider complex eigenvalues. If real matrix A has complex conjugate eigenvalues $\alpha \pm i\beta$ and corresponding eigenvectors $a\pm ib$, then two LI vector solutions to \difeq are $e^{\alpha t}cos(\beta t)a-e^{\alpha t}sin(\beta t)b$ and $e^{\alpha t}sin(\beta t)a-e^{\alpha t}cos(\beta t)b$
+\end{thm}
+
+\section{Fourier Series}
+
+\begin{dfn}[Fourier Series]
+Given f is a piecewise continuous function on the interval [-L,L]. The Fourier Series of f is the trigonometric series:
+\begin{equation}
+f(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\{a_ncos(\frac{n\pi x}{L})+b_nsin(\frac{n\pi x}{L})\}
+\end{equation}
+
+Where $a_n$ $b_n$ are given by the formulas
+\begin{equation}
+a_n\sim\frac{1}{L}\int_{-L}^{L}f(x)cos(\frac{n\pi x}{L})dx, \: n=0,1,2,\ldots
+\end{equation}
+\begin{equation}
+b_n\sim\frac{1}{L}\int_{-L}^{L}f(x)sin(\frac{n\pi x}{L})dx, \: n=0,1,2,\ldots
+\end{equation}
+
+\end{dfn}
+
+\begin{dfn}[Orthogonal Expansions]
+A set of functions $\{f_n{x)\}^\{infty}_{n=1}$ is an orthogonal system with respect to the weight function $w(x)$ on the interval $[a,b]$ if
+\begin{equation}
+\sum_a^b f_m(x)f_n(x)w(x)dx=0, \: whenever m\neq n
+\end{equation}
+
+It is an orthonormal set if each element is also normal
+\begin{equation}
+\|f\| = \sqrt{\int_a^b f^2(x)w(x)dx}=1
+\end{equation}
+
+Now, we can define a generalized fourier series or orthogonal expansion for such an orthonormal set:
+\begin{equation}
+f(x)=c_1f_1(x)+c_2f_2(x)+\ldots
+\end{equation}
+
+We find each constant is
+\begin{equation}
+c_m = \frac{\int_c^b f(x)f_m(x)w(x)dx}{\|f_m\|^2}, \: n=1,2,3,\ldots
+\end{equation}
+\end{dfn}
+
+\begin{thm}
+If f and f' are piecewise continuous on interval $[-L,L]$, then for any x on $(-L,L)$, the fourier series converges to $\frac{1}{2}[f(x^+)+f(x^-)]$. When $x=\pm L$, the series converges to $\frac{1}{2}[f(-L^+)+f(L^-)]$
+\end{thm}
+
+Differentiation and Integration of a Fourier Series can all occur term-wise.
+
+\begin{dfn}[Fourier Sine and Cosine Series]
+Given f(x) is a piecewise continuous function on the interval [0, L]. The Fourier Cosine Series on that same interval is
+\begin{equation}
+\frac{a_0}{2}+\sum^\infty_{n=1} a_n cos(\frac{n\pi x}{L}
+\end{equation}
+\begin{equation}
+a_n=\frac{2}{L} \int^L_0 f(x) cos(\frac{n\pi x}{L}dx), \l: n=0,1,2,\ldots
+\end{equation}
+
+The Fourier Sine Series on that same interval is
+\begin{equation}
+\sum^\infty_{n=1} b_n sin(\frac{n\pi x}{L}
+\end{equation}
+\begin{equation}
+b_n=\frac{2}{L} \int^L_0 f(x) sin(\frac{n\pi x}{L}dx), \l: n=0,1,2,\ldots
+\end{equation}
+
+\end{dfn}
 
 \end{document}
